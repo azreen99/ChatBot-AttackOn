@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<title>Project AttackOn</title>
+
+<head>
+    <link rel="shortcut icon" type="image/x-icon"
+        href="https://e7.pngegg.com/pngimages/811/700/png-clipart-chatbot-internet-bot-business-natural-language-processing-facebook-messenger-business-people-logo-thumbnail.png" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        body {
+            font-family: monospace;
+        }
+
+        h1 {
+            display: inline-block;
+            font-size: 3em;
+            margin: 0;
+            padding: 14px;
+        }
+
+        h3 {
+            color: black;
+            font-size: 20px;
+            margin-top: 3px;
+            text-align: center;
+        }
+
+        #chatbox {
+            margin-left: auto;
+            margin-right: auto;
+            width: 40%;
+            margin-top: 60px;
+        }
+
+        #userInput {
+            margin-left: auto;
+            margin-right: auto;
+            width: 40%;
+            margin-top: 60px;
+        }
+
+        #textInput {
+            width: 90%;
+            border: none;
+            border-bottom: 3px solid black;
+            font-family: monospace;
+            font-size: 17px;
+        }
+
+        .userText {
+            color: black;
+            font-family: monospace;
+            font-size: 17px;
+            text-align: right;
+            line-height: 30px;
+        }
+
+        .userText span {
+            background-color: greenyellow;
+            padding: 10px;
+            border-radius: 2px;
+        }
+
+        .botText {
+            color: black;
+            font-family: monospace;
+            font-size: 17px;
+            text-align: left;
+            line-height: 30px;
+        }
+
+        .botText span {
+            background-color: #BEE3FF;
+            padding: 10px;
+            border-radius: 2px;
+        }
+
+        #tidbit {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 300px;
+        }
+
+        .boxed {
+            margin-left: auto;
+            margin-right: auto;
+            width: 78%;
+            margin-top: 30px;
+            margin-bottom: 40px;
+            border: 1px solid green;
+            padding-bottom: 40px;
+        }
+
+        .box {
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <img />
+    <center>
+        <h1>
+            <img src="data:image/png;base64,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"
+                alt="UTP" /><br>UTP ChatBot
+        </h1>
+    </center>
+    <div class="box"></div>
+    <div class="boxed">
+        <div>
+            <div id="chatbox">
+                <img src="https://e7.pngegg.com/pngimages/811/700/png-clipart-chatbot-internet-bot-business-natural-language-processing-facebook-messenger-business-people-logo-thumbnail.png"
+                    alt="Project AttackOn" style="width:50px;height:50px;" />
+                <p class="botText">
+                    <span>Hello there! I am UTP ChatBot. May I help you?</span>
+                </p>
+            </div>
+            <div id="userInput">
+                <input id="textInput" type="text" name="msg" placeholder="Message" />
+            </div>
+        </div>
+
+        <script>
+            function getBotResponse() {
+                var rawText = $("#textInput").val();
+                var userHtml = '<p class="userText"><span>' + rawText + "</span></p>";
+                $("#textInput").val("");
+                $("#chatbox").append(userHtml);
+                document
+                    .getElementById("userInput")
+                    .scrollIntoView({
+                        block: "start",
+                        behavior: "smooth"
+                    });
+                $.get("/get", {
+                    msg: rawText
+                }).done(function (data) {
+                    var botHtml = '<p class="botText"><span>' + data + "</span></p>";
+                    $("#chatbox").append(botHtml);
+                    document
+                        .getElementById("userInput")
+                        .scrollIntoView({
+                            block: "start",
+                            behavior: "smooth"
+                        });
+                });
+            }
+            $("#textInput").keypress(function (e) {
+                if (e.which == 13) {
+                    getBotResponse();
+                }
+            });
+        </script>
+
+    </div>
+</body>
+
+</html>

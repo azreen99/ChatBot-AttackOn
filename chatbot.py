@@ -9,7 +9,7 @@ app = Flask(__name__)
 with open('file.txt', 'r') as file:
     conversation = file.read()
 
-bot = ChatBot("UTP ChatBot", logic_adaoters=["chatterbot.logic.MathematicalEvaluation",
+bot = ChatBot("UTP ChatBot", logic_adapters=["chatterbot.logic.MathematicalEvaluation",
                                              "chatterbot.logic.BestMatch"
                                              ])
 trainer = ListTrainer(bot)
